@@ -1,0 +1,130 @@
+\input{preamble.tex}
+\AfterPreamble{\hypersetup{
+  pdftitle={Entregable 2: SiS, percepción y cuantificación},
+}}
+
+\begin{document}
+\startpage
+
+\paragraph{Problema 1.}
+
+\begin{equation*}
+  x[n] = \frac{1}{P} \sum_{m=0}^{P-1} e^{j\tau\frac{m}{P}n}
+\end{equation*}
+
+\subparagraph{Apartado A.}
+
+Manipulamos para tener una serie geométrica y calculamos la suma:
+%
+\begin{align*}
+  x[n] &= \frac{1}{P} \sum_{m=0}^{P-1} \left( e^{j\tau\frac{1}{P}n} \right)^{m}
+\\
+  x[n] &= \frac{1}{P} \, \frac{ e^{j\tau\frac{P}{P}n} - e^{j\tau\frac{0}{P}n} }{
+    e^{j\tau\frac{1}{P}n} - 1 }
+    \quad \text{si $e^{j\tau\frac{1}{P}n} \neq 1$}
+\end{align*}
+%
+Simplificamos la expresión:
+%
+\begin{align*}
+  x[n] &= \frac{1}{P} \, \frac{ 1 - 1 }{
+    e^{j\tau\frac{1}{P}n} - 1 }
+    \quad \text{excepto si $\tau \,|\, \tau\frac{1}{P}n$}
+\\
+  x[n] &= 0
+    \quad \text{excepto si $P \,|\, n$}
+\end{align*}
+
+\subparagraph{Apartado B.}
+
+No puedo particularizar la expresión resultante para $n$ siendo un múltiplo de
+$P$ ya que la condición lo impide (tendríamos que aplicar la expresión
+original: $ x[n] = \frac{1}{P} \, P = 1 $).
+
+Respecto a $n \neq iP$, aquí sí aplica la expresión encontrada y tenemos $x[n]
+= 0$. Teniendo esto en cuenta, $x[n]$ corresponde a un tren de pulsos ya que
+todas las muestras son nulas excepto en $n$ múltiplo de $P$.
+
+\finishpage
+
+
+\startpage
+\paragraph{Problema 2.}
+
+\subparagraph{Apartado A.}
+
+Se distinguen tres «deltas» diferenciadas en la DFT, cada una con su
+equivalente simétrica al otro lado. Por tanto habría tres sinusoides en la
+señal de entrada.
+
+\subparagraph{Apartado B.}
+
+Respecto a las frecuencias, solo tenemos que determinar los bins donde estan
+situadas las deltas, y la frecuencia discreta correspondiente será
+$F = \frac{n}{N}$. Los bins son aproximadamente \num{52}, \num{125} y \num{205}.
+Ello daría frecuencias aproxmiadas de $F_1 = \nicefrac{1}{10}$, $F_2 = \nicefrac{1}{4}$ y $F_3 = \nicefrac{2}{5}$.
+
+Respecto a las amplitudes, la amplitud de las dos sincs que una sinusoide
+enventanada de amplitud 1 produce corresponde a $\nicefrac{L}{2}$ (media
+longitud de la ventana). Las sincs correspondientes tienen amplitudes
+aproximadas de \num{480}, \num{245} y \num{1200}. Eso daría amplitudes
+aproximadas de $\nicefrac{15}{8}$, $\nicefrac{24}{25}$ y $\nicefrac{47}{10}$.
+
+\finishpage
+
+
+\startpage
+\paragraph{Problema 3.}
+
+La banda crítica de una cierta frecuencia $f$ es el rango de frecuencias que nuestro sistema auditivo no nos permite diferenciar de $f$. La curva de la
+figura 2 indica que la banda crítica es aproximadamente \SI{100}{\hertz} para
+frecuencias de hasta \SI{500}{\hertz}, y a partir de ese punto empieza a
+aumentar más o menos linealmente. El resultado es que discernimos bien las
+frecuencias medias pero tenemos más dificultad discerniendo las altas o bajas.
+
+\paragraph{Problema 4.}
+
+En condiciones escotópicas, las células receptoras que más se usan son los
+\emph{bastones}. Son muchísimo más sensibles que los conos, y estan más
+dispersos por la retina (aportando mayor campo visual), pero por contra no
+permiten ningún tipo de percepción al color. Además, su baja densidad sumado
+al hecho de que los impulsos de varios de ellos se agrupan en el nervio óptico
+reduce considerablemente la nitidez.
+
+\paragraph{Problema 5.}
+
+La ley de Weber-Fechner indica que el incremento de percepción de brillo es
+proporcional al ratio entre la poténcia anterior y la nueva. Dicho de otra
+forma: nuestra noción de brillo es logarítmica. Ante una fuente puntual que sube
+su potencia de forma lineal percibiremos un brillo que sube muy rápido al
+principio y luego apenas cambia.
+
+\finishpage
+
+
+\startpage
+\paragraph{Problema 6.}
+
+\subparagraph{Apartado A.}
+
+Cuantificación \emph{mid-thread} ya que tiene nivel cero. Hay 5 niveles por
+codificar, con lo cual necesitamos \textsf{Nbits} = 3 bits como mínimo.
+
+\subparagraph{Apartado B.}
+
+En orden:
+
+\begin{itemize}
+\item Máximo absoluto del error de cuantificación.
+\item Mínimo absoluto del error de cuantificación.
+\item Integral cuadrática (energía) del error de cuantificación.
+\item Integral cuadrática (energía) de la señal original.
+\item SNR expresado en decibelios.
+\end{itemize}
+
+Los máximos y mínimos absolutos corresponden a medio paso, como se espera
+en un cuantificador. El SNR bajo indica que la cuantificación es muy mala
+(introduce mucho ruido), lo cual es consistente ya que el paso es muy grande.
+
+\finishpage
+\end{document}
