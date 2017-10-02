@@ -1,0 +1,91 @@
+\input{preamble.tex}
+\AfterPreamble{\hypersetup{
+  pdftitle={Entregable 3: Cuantificación 1D e histograma de imágenes},
+}}
+
+\begin{document}
+\startpage
+
+\paragraph{Problema 1.}
+
+\subparagraph{Apartado A.}
+
+La potencia de la señal original corresponde al segundo momento de la
+función de densidad:
+%
+\begin{align*}
+  P &= \int^{\infty}_{-\infty} x^2 f(x) \dif x
+\\
+  P &=
+    \int^{-\nicefrac{1}{4}}_{-1} x^2 \, \num{0.1} \dif x +
+    \int^{\nicefrac{1}{4}}_{-\nicefrac{1}{4}} x^2 \, \num{1.97} \dif x +
+    \int^{1}_{\nicefrac{1}{4}} x^2 \, \num{0.1} \dif x
+\\+
+  P &=
+    \num{0.1} \left. \frac{x^3}{3} \right|^{-\nicefrac{1}{4}}_{-1} +
+    \num{1.97} \left. \frac{x^3}{3} \right|^{\nicefrac{1}{4}}_{-\nicefrac{1}{4}} +
+    \num{0.1} \left. \frac{x^3}{3} \right|^{1}_{\nicefrac{1}{4}}
+\\
+  P &=
+    \num{0.1} \left. \frac{x^3}{3} \right|^{-\nicefrac{1}{4}}_{-1} +
+    \num{1.97} \left. \frac{x^3}{3} \right|^{\nicefrac{1}{4}}_{-\nicefrac{1}{4}} +
+    \num{0.1} \left. \frac{x^3}{3} \right|^{1}_{\nicefrac{1}{4}}
+    = \frac{13}{480} \simeq \num{27.09e-3}
+\end{align*}
+
+\subparagraph{Apartado B.}
+
+La aproximación habitual para la potencia del error en cuantificadores \emph{mid-rise}:
+%
+\begin{align*}
+  \sigma_q^2 = \frac{X_{max}^2}{3 \cdot 2^{2B}}
+           = \frac{1^2}{3 \cdot 2^{2 \cdot 5}}
+           \simeq \num{0.326e-3}
+\end{align*}
+%
+Nos devuelve el resultado exacto en este caso porque la función de densidad nos
+permite dividir la distribución de la señal en ocho tramos uniformes, y el
+número de niveles del cuantificador es múltiplo de ocho.
+
+\subparagraph{Apartado C.}
+
+Por inspección visual, el intervalo $\left|x\right| \leq \num{0.25}$ queda
+convertido en $\left|y\right| \leq \num{0.75}$ al pasar por la función de
+compresión, y se cuantifica con $\frac{\num{0.75}}{1} \, 2^5 = 24$ niveles.
+
+Los otros 8 niveles se emplean para $\left|x\right| > \num{0.25}$.
+
+\subparagraph{Apartado D.}
+
+El paso en el intervalo $\left|x\right| \leq \num{0.25}$ es de
+$\frac{2 \cdot \num{0.25}}{24} \approx \num{0.0208}$ y en el resto es de
+$\frac{2 - 2 \cdot \num{0.25}}{8} = \num{0.1875}$.
+
+\subparagraph{Apartado E.}
+
+Una manera informal de hacerlo es calcular la potencia del error,
+condicionado a $\left|x\right| \leq \num{0.25}$ (donde podemos considerar un
+cuantificador uniforme y aplicar su expresión):
+%
+\begin{align*}
+  \Bigl. \sigma_q^2 \Bigr|_{\left|x\right| \leq \num{0.25}}
+    &= \frac{\num{.25}^2}{3 \cdot 24^2} = \frac{1}{27648}
+\end{align*}
+%
+Hacemos lo mismo con el conjunto restante:
+%
+\begin{align*}
+  \Bigl. \sigma_q^2 \Bigr|_{\left|x\right| > \num{0.25}}
+    &= \frac{\num{.75}^2}{3 \cdot 8^2} = \frac{3}{1024}
+\end{align*}
+%
+Teniendo en cuenta las probabilidades de entrar en cada caso,
+la potencia media del error es:
+%
+\begin{align*}
+  \sigma_q^2 = \num{0.015} \, \frac{3}{1024} + \num{0.985} \, \frac{1}{27648}
+             \simeq \num{0.080e-3}
+\end{align*}
+
+\finishpage
+\end{document}
