@@ -20,7 +20,7 @@ función de densidad:
     \int^{-\nicefrac{1}{4}}_{-1} x^2 \, \num{0.1} \dif x +
     \int^{\nicefrac{1}{4}}_{-\nicefrac{1}{4}} x^2 \, \num{1.97} \dif x +
     \int^{1}_{\nicefrac{1}{4}} x^2 \, \num{0.1} \dif x
-\\+
+\\
   P &=
     \num{0.1} \left. \frac{x^3}{3} \right|^{-\nicefrac{1}{4}}_{-1} +
     \num{1.97} \left. \frac{x^3}{3} \right|^{\nicefrac{1}{4}}_{-\nicefrac{1}{4}} +
@@ -86,6 +86,137 @@ la potencia media del error es:
   \sigma_q^2 = \num{0.015} \, \frac{3}{1024} + \num{0.985} \, \frac{1}{27648}
              \simeq \num{0.080e-3}
 \end{align*}
+
+\finishpage
+\startpage
+
+\paragraph{Problema 2.}
+
+\subparagraph{Apartado A.}
+
+Se desea una función de $\left[0, 1\right]$ a $\left[0, 1\right]$ con
+pendiente alta ($\left|T_1'(r)\right| > 1$) para $r$ cercanos a $0$, y pendiente
+baja ($\left|T_1'(r)\right| < 1$) para $r$ cercanos a $1$. Una posible solución
+es:
+%
+\begin{align*}
+  T_1(r) = \sqrt{r}
+\end{align*}
+
+\subparagraph{Apartado B.}
+
+Se define una función con dos tramos. En el primero, cuando $r$ está en $\left[
+\num{0}, \num{0.6}\right]$, se devuelve siempre $0$. En el segundo, se devuelve
+$r$ ya que no hay que modificar nada:
+%
+\begin{align*}
+  T_2(r) = \begin{cases}
+    0 & \text{si $r \in \left[\num{0}, \num{0.6}\right]$} \\
+    r & \text{otro caso}
+  \end{cases}
+\end{align*}
+
+\subparagraph{Apartado C.}
+
+Lo más sencillo es construir una función que comprima todos los valores,
+uniformemente ($T_3'(r) = k, \, k < 1$). Como no lo especifican, haremos la
+compresión hacia el centro ($T_3(\nicefrac{1}{2}) = \nicefrac{1}{2}$).
+%
+\begin{align*}
+  T_3(r) = k\left(r - \nicefrac{1}{2}\right) + \nicefrac{1}{2}
+\end{align*}
+%
+con $k \in \left(0, 1\right)$ dependiendo del contraste deseado.
+
+\finishpage
+\startpage
+
+\paragraph{Problema 3.}
+
+Los niveles (no vacíos) que caen dentro del primer tramo serían el 0 (12),
+4 (4), 8 (12), 12 (4), 16 (12) y se suman todos en el nivel~0 de la imagen
+resultante: $h_y[0] = 44$.
+
+Los niveles que caen en el segundo tramo serían el
+20 (4), 24 (12), 28 (4) y se suman en el nivel 31 de la imagen resultante:
+$h_y[31] = 20$.
+
+El histograma queda así:
+%
+\begin{align*}
+  h_y[r] = \begin{cases}
+    44 & \text{si $r = 0$} \\
+    20 & \text{si $r = 31$} \\
+    0 & \text{otro caso}
+  \end{cases}
+\end{align*}
+
+\finishpage
+\startpage
+
+\paragraph{Problema 4.}
+
+Empezaremos calculando la función de probabilidad:
+%
+\begin{align*}
+  F_x(r) &= \int_{-\infty}^r f_x(r) \dif r
+\\
+  F_x(r) &= \begin{dcases}
+    0 & \text{si $r < 0$}
+  \\
+    \int_0^r 4r \dif r
+        & \text{si $r \in \left[0, \nicefrac{1}{2}\right)$}
+  \\
+    \int_0^{\nicefrac{1}{2}} 4r \dif r + \int_{\nicefrac{1}{2}}^{r} -4\left(r-1\right) \dif r
+        & \text{si $r \in \left[\nicefrac{1}{2}, 1\right)$}
+  \\
+    1 & \text{si $r \geq 1$}
+  \end{dcases}
+\\
+  F_x(r) &= \begin{dcases}
+    0 & \text{si $r < 0$}
+  \\
+    \bigl. 2 r^2 \bigr|_0^r
+        & \text{si $r \in \left[0, \nicefrac{1}{2}\right)$}
+  \\
+    \bigl. 2 r^2 \bigr|_0^{\nicefrac{1}{2}} \; + \; \bigl. -2r^2 +4r\bigr|_{\nicefrac{1}{2}}^{r}
+        & \text{si $r \in \left[\nicefrac{1}{2}, 1\right)$}
+  \\
+    1 & \text{si $r \geq 1$}
+  \end{dcases}
+\\
+  F_x(r) &= \begin{dcases}
+    0 & \text{si $r < 0$}
+  \\
+    2 r^2
+        & \text{si $r \in \left[0, \nicefrac{1}{2}\right)$}
+  \\
+    1 - 2 \left(r-1\right)^2
+        & \text{si $r \in \left[\nicefrac{1}{2}, 1\right)$}
+  \\
+    1 & \text{si $r \geq 1$}
+  \end{dcases}
+\end{align*}
+
+\subparagraph{Apartado A.}
+
+La transformación que ecualiza la imagen es precisamente $F_x(r)$, ya que
+al aplicarla la distribución resultante es
+$F_y(r) = F_x\left(F_x^{-1}(r)\right) = r$ (distribución uniforme).
+
+\subparagraph{Apartado B.}
+
+La pendiente de la transformación (que es $f_x(r)$) nos indica que los niveles
+$\left[0, \num{0.25}\right]$, $\left[\num{0.75}, 1\right]$ (donde la pendiente
+es mayor a la unidad) se comprimirán, especialmente los extremos. Así mismo,
+los niveles $\left[\num{0.25}, \num{0.75}\right]$ se expandirán, especialmente
+la parte central.
+
+\subparagraph{Apartado C.}
+
+Ya que la imagen está ecualizada, la distribución es ahora uniforme y el
+histograma debería ser constante para cualquier $r$: $H_x[r] = k$.
+
 
 \finishpage
 \end{document}
