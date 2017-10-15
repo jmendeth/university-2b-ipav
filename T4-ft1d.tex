@@ -1,0 +1,196 @@
+\input{preamble.tex}
+\AfterPreamble{\hypersetup{
+  pdftitle={Entregable 4: Análisis frecuencial 1D},
+}}
+
+\begin{document}
+\startpage
+
+\paragraph{Problema 1.}
+
+Aquí lo haremos mediante la definición.
+
+\subparagraph{Apartado A.}
+
+\begin{align*}
+  \mathcal{F}\{ x[n_0 - n] \}(f)
+  &= \sum_{n = -\infty}^{\infty} x[n_0 - n] e^{-j\tau f n}
+\end{align*}
+%
+Aplicamos un cambio de variable $m = n_0 - n$; el intervalo del sumatorio no
+cambia:
+%
+\begin{align*}
+  \mathcal{F}\{ x[n_0 - n] \}(f)
+  &= \sum_{m = -\infty}^{\infty} x[m] e^{-j\tau f \left( n_0 - m \right) }
+\\
+  \mathcal{F}\{ x[n_0 - n] \}(f)
+  &= \sum_{m = -\infty}^{\infty} x[m] e^{+j\tau f m }
+    \, e^{-j\tau f n_0 }
+\\
+  \mathcal{F}\{ x[n_0 - n] \}(f)
+  &= \mathcal{F}\{ x[n] \}(-f) \, e^{-j\tau f n_0 } = F(-f) e^{-j\tau f n_0 }
+\end{align*}
+
+\subparagraph{Apartado B.}
+
+\begin{align*}
+  \mathcal{F}\{ x^*[n + k] \}(f)
+  &= \sum_{n = -\infty}^{\infty} x^*[n + k] e^{-j\tau f n}
+\end{align*}
+%
+Aplicamos un cambio de variable $m = n + k$; el intervalo del sumatorio no
+cambia:
+%
+\begin{align*}
+  \mathcal{F}\{ x^*[n + k] \}(f)
+  &= \sum_{m = -\infty}^{\infty} x^*[m] e^{-j\tau f \left( m - k \right) }
+\\
+  \mathcal{F}\{ x^*[n + k] \}(f)
+  &= \sum_{m = -\infty}^{\infty} x^*[m] e^{-j\tau f m }
+    \, e^{j\tau f k }
+\\
+  \mathcal{F}\{ x^*[n + k] \}(f)
+  &= \left[ \sum_{m = -\infty}^{\infty} x[m] e^{+j\tau f m } \right]^*
+    \, e^{j\tau f k }
+\\
+  \mathcal{F}\{ x^*[n + k] \}(f)
+  &= \left[ \mathcal{F}\{ x[n] \}(-f) \right]^*
+    \, e^{j\tau f k } = F^*(-f) e^{j\tau f k }
+\end{align*}
+
+\finishpage
+\startpage
+
+\paragraph{Problema 2.}
+
+\subparagraph{Apartado A.}
+
+El primer periodo de $x[n]$ es $\{ 1, 0, -1, 0 \}$, por tanto usando la
+definición queda:
+%
+\begin{align*}
+  F_p(f) &= 1\cdot e^{-j\tau f \cdot 0} -1\cdot e^{-j\tau f \cdot 2}
+    = 1 - e^{-j\tau 2 f}
+\end{align*}
+
+\subparagraph{Apartado B.}
+
+Dado que tanto la DFT como el periodo son de 4 muestras, la DFT es simplemente
+la transformada anterior muestreada adecuadamente:
+%
+\begin{align*}
+  X[k] &= F_p( \nicefrac{k}{4} ) = 1 - e^{-j\tau \nicefrac{f}{2}} =
+    \{ 0, 2, 0, 2 \}
+\end{align*}
+
+\subparagraph{Apartado C.}
+
+La transformada de fourier de la señal periodica es simplemente la DFT
+de un periodo (apartado anterior), expresada en forma de distribución:
+%
+\begin{align*}
+  X(f) = \sum_{k = -\infty}^{\infty} X[k] \delta(f - 4k)
+    = 2 \, \Psi_{\nicefrac{1}{2}}(f - \nicefrac{1}{4})
+\end{align*}
+
+\subparagraph{Apartado D.}
+
+La antitransformada de la DFT nos dará la señal original expresada como suma
+de exponenciales tal y como se pide:
+%
+\begin{align*}
+  x[n] &= \frac{1}{4} \sum_{k = 0}^{3} X[k] e^{j\tau \frac{k}{4} n}
+    = \frac{1}{2} e^{j\tau \frac{n}{4}}
+    + \frac{1}{2} e^{-j\tau \frac{n}{4}}
+\end{align*}
+
+\finishpage
+\startpage
+
+\paragraph{Problema 3.}
+
+\subparagraph{Apartado A.}
+
+La ventana es rectangular, con lo cual la anchura de los lóbulos (mínima
+diferencia en frecuencia que podemos discernir) es $\Delta F = \nicefrac{2}{L}$.
+Dado que queremos garantizar $\Delta F < \frac{\SI{1.9}{\hertz}}
+{\SI{130}{\hertz}}$, se deduce que $L >
+2\frac{\SI{130}{\hertz}}{\SI{1.9}{\hertz}} \Rightarrow L \geq \num{137}$.
+
+La sensibilidad no nos limita en este caso porque por la naturaleza de un
+acorde las tres notas son de similar amplitud.
+
+\subparagraph{Apartado B.}
+
+De entrada, observamos unicamente tres 'deltas' en la primera FFT. Con lo cual
+podemos garantizar que durante esta ventana solo se ha tocado un acorde con
+esas notas.
+
+Nos fijamos en los bins de las tres notas y al pasarlos a frecuencia analógica
+obtenemos aproximadamente \SI{32.7}{\hertz} (\num{515}), \SI{41.2}{\hertz}
+(\num{649}) y \SI{49}{\hertz} (\num{772}). Esto corresponde a las notas
+Do\textsubscript{1}, Mi\textsubscript{1} y Sol\textsubscript{1}; sería un
+acorde Do mayor.
+
+En la segunda FFT vemos contribuciones en exactamente las mismas notas que
+antes, junto con otras dos nuevas. Si nos fijamos en las amplitudes lo podemos
+interpretar como la suma de la triada anterior, y otra nueva triada que
+comparten una de las notas.
+
+Las nuevas notas, siguiendo el procedimiento anterior, tienen frecuencias
+aproximadas de \SI{41.2}{\hertz} (\num{649}), \SI{51.9}{\hertz} (\num{818}) y
+\SI{61.8}{\hertz} (\num{973}). Esto corresponde a las notas
+Mi\textsubscript{1}, Sol\#\textsubscript{1} y Si\textsubscript{1}; sería un
+acorde Mi mayor.
+
+Las anchuras de los lóbulos de ambas triadas de la segunda ventana son las
+mismas por lo que podemos estar razonablemente seguros de las dos ocupan la
+mitad de la ventana en tiempo. Es importante tener en cuenta que no podemos
+saber en qué orden se tocan (esa información vendría dada por la fase).
+
+Una interpretación posible es que la duración de las triadas es de media
+ventana, y que en la primera ventana había dos triadas iguales que se analizan
+como una. En ese caso cada triada dura $D = \num{0.5} \frac{256}{130}
+\approx \SI{0.98}{\second}$.
+
+\finishpage
+\startpage
+
+\paragraph{Problema 4.}
+
+\subparagraph{Apartado A.}
+
+Para evitar aliasing se debe usar una frecuencia de muestreo superior al doble
+de la máxima frecuencia de trabajo, por tanto en este caso $f_s >
+\SI{50}{\hertz}$.
+
+\subparagraph{Apartado B.}
+
+Determinamos los bins de las tres 'deltas' en la DFT y sus correspondientes
+frecuencias discretas aproximadas: \num{0.1} (\num{41}), \num{0.2} (\num{81})
+y \num{0.3} (\num{120}).
+
+Las frecuencias analógicas según una frecuencia de muestreo de \SI{50}{\hertz}
+son, respectivamente: \SI{5}{\hertz}, \SI{10}{\hertz} y \SI{15}{\hertz}.
+
+\subparagraph{Apartado C.}
+
+La duración se relaciona con la anchura del lóbulo según la expresión:
+$L_1 = \frac{2N}{k}$
+
+Respecto al primer tono, permanece hasta la segunda ventana donde tiene una
+anchura de unas 8 muestras. Esto significa $L_1 \simeq L + \frac{2\cdot 400}{8}
+\simeq 200$ muestras (dura toda la señal).
+
+Respecto al segundo tono, permanece hasta la segunda ventana donde tiene una
+anchura de unas 33 muestras. Esto significa $L_1 \simeq L + \frac{2\cdot 400}{33}
+\simeq 125$ muestras.
+
+Respecto al tercer tono, este muere ya en la primera ventana donde tiene una
+anchura de unas 100 muestras. Esto significa $L_1 \simeq \frac{2\cdot 400}{100}
+\simeq 8$ muestras.
+
+
+\finishpage
+\end{document}
