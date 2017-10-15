@@ -107,15 +107,26 @@ es ligeramente más probable lo primero.
 
 La frecuencia fundamental \SI{100}{\hertz} se situa en el bin \num{206}, y
 $N = 2048$, con lo cual aislamos $f_s$ de $f = \nicefrac{n}{N} \, f_s$ y nos
-queda $f_s = f \nicefrac{N}{n} \simeq \SI{994}{\hertz}$.
+queda $f_s = f \nicefrac{N}{n} \simeq \SI{994}{\hertz} \approx
+\SI{1}{\kilo\hertz}$.
 
-%\subparagraph{Apartado B.}
+\subparagraph{Apartado B.}
+
+Por el enunciado deducimos que el segmento de sinusoide ha sido enventanado
+con una ventana rectangular. La longitud de la ventana se relaciona con la
+anchura del lóbulo principal (ambos en muestras) según la expresión
+$L = \frac{2N}{k} \simeq \frac{2 \cdot 2048}{8} \simeq 512$ muestras.
+
+La duración equivalente en segundos según la frecuencia de muestreo anterior
+es $\frac{512}{\SI{1000}{\hertz}} \approx \SI{0.5}{\second}$.
+
 
 \subparagraph{Apartado C.}
 
-La amplitud de la sinusoide debería coincidir con la amplitud de la sinc que
-apreciamos en la DFT dividida por el numero de muestras de la DFT, con lo
-cual $\frac{1000}{2048} = \num{0.488}$.
+La amplitud de las dos sincs de una sinusoide de amplitud $A$ para una ventana
+rectangular es $A \frac{L}{2}$. Segun esa expresión y lo que observamos en la
+DFT, la amplitud de la sinusoide es $A \simeq \frac{1000 \cdot 2}{512} \approx
+\num{3.9}$.
 
 \finishpage
 \end{document}
