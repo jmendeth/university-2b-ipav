@@ -13,50 +13,50 @@ Aquí lo haremos mediante la definición.
 \subparagraph{Apartado A.}
 
 \begin{align*}
-  \mathcal{F}\{ x[n_0 - n] \}(f)
-  &= \sum_{n = -\infty}^{\infty} x[n_0 - n] e^{-j\tau f n}
+  \mathcal{F}\{ x[n_0 - n] \}(F)
+  &= \sum_{n = -\infty}^{\infty} x[n_0 - n] e^{-j\tau F n}
 \end{align*}
 %
 Aplicamos un cambio de variable $m = n_0 - n$; el intervalo del sumatorio no
 cambia:
 %
 \begin{align*}
-  \mathcal{F}\{ x[n_0 - n] \}(f)
-  &= \sum_{m = -\infty}^{\infty} x[m] e^{-j\tau f \left( n_0 - m \right) }
+  \mathcal{F}\{ x[n_0 - n] \}(F)
+  &= \sum_{m = -\infty}^{\infty} x[m] e^{-j\tau F \left( n_0 - m \right) }
 \\
-  \mathcal{F}\{ x[n_0 - n] \}(f)
-  &= \sum_{m = -\infty}^{\infty} x[m] e^{+j\tau f m }
-    \, e^{-j\tau f n_0 }
+  \mathcal{F}\{ x[n_0 - n] \}(F)
+  &= \sum_{m = -\infty}^{\infty} x[m] e^{+j\tau F m }
+    \, e^{-j\tau F n_0 }
 \\
-  \mathcal{F}\{ x[n_0 - n] \}(f)
-  &= \mathcal{F}\{ x[n] \}(-f) \, e^{-j\tau f n_0 } = F(-f) e^{-j\tau f n_0 }
+  \mathcal{F}\{ x[n_0 - n] \}(F)
+  &= \mathcal{F}\{ x[n] \}(-F) \, e^{-j\tau F n_0 } = X(-F)\, e^{-j\tau F n_0 }
 \end{align*}
 
 \subparagraph{Apartado B.}
 
 \begin{align*}
-  \mathcal{F}\{ x^*[n + k] \}(f)
-  &= \sum_{n = -\infty}^{\infty} x^*[n + k] e^{-j\tau f n}
+  \mathcal{F}\{ x^*[n + k] \}(F)
+  &= \sum_{n = -\infty}^{\infty} x^*[n + k] e^{-j\tau F n}
 \end{align*}
 %
 Aplicamos un cambio de variable $m = n + k$; el intervalo del sumatorio no
 cambia:
 %
 \begin{align*}
-  \mathcal{F}\{ x^*[n + k] \}(f)
-  &= \sum_{m = -\infty}^{\infty} x^*[m] e^{-j\tau f \left( m - k \right) }
+  \mathcal{F}\{ x^*[n + k] \}(F)
+  &= \sum_{m = -\infty}^{\infty} x^*[m] e^{-j\tau F \left( m - k \right) }
 \\
-  \mathcal{F}\{ x^*[n + k] \}(f)
-  &= \sum_{m = -\infty}^{\infty} x^*[m] e^{-j\tau f m }
-    \, e^{j\tau f k }
+  \mathcal{F}\{ x^*[n + k] \}(F)
+  &= \sum_{m = -\infty}^{\infty} x^*[m] e^{-j\tau F m }
+    \, e^{j\tau F k }
 \\
-  \mathcal{F}\{ x^*[n + k] \}(f)
-  &= \left[ \sum_{m = -\infty}^{\infty} x[m] e^{+j\tau f m } \right]^*
-    \, e^{j\tau f k }
+  \mathcal{F}\{ x^*[n + k] \}(F)
+  &= \left[ \sum_{m = -\infty}^{\infty} x[m] e^{+j\tau F m } \right]^*
+    \, e^{j\tau F k }
 \\
-  \mathcal{F}\{ x^*[n + k] \}(f)
-  &= \left[ \mathcal{F}\{ x[n] \}(-f) \right]^*
-    \, e^{j\tau f k } = F^*(-f) e^{j\tau f k }
+  \mathcal{F}\{ x^*[n + k] \}(F)
+  &= \left[ \mathcal{F}\{ x[n] \}(-F) \right]^*
+    \, e^{j\tau F k } = X^*(-F)\, e^{j\tau F k }
 \end{align*}
 
 \finishpage
@@ -70,8 +70,8 @@ El primer periodo de $x[n]$ es $\{ 1, 0, -1, 0 \}$, por tanto usando la
 definición queda:
 %
 \begin{align*}
-  F_p(f) &= 1\cdot e^{-j\tau f \cdot 0} -1\cdot e^{-j\tau f \cdot 2}
-    = 1 - e^{-j\tau 2 f}
+  F_p(F) &= 1\cdot e^{-j\tau F \cdot 0} -1\cdot e^{-j\tau F \cdot 2}
+    = 1 - e^{-j\tau 2 F}
 \end{align*}
 
 \subparagraph{Apartado B.}
@@ -80,18 +80,19 @@ Dado que tanto la DFT como el periodo son de 4 muestras, la DFT es simplemente
 la transformada anterior muestreada adecuadamente:
 %
 \begin{align*}
-  X[k] &= F_p( \nicefrac{k}{4} ) = 1 - e^{-j\tau \nicefrac{f}{2}} =
+  X[k] &= F_p( \nicefrac{k}{4} ) = 1 - e^{-j\tau \nicefrac{k}{2}} =
     \{ 0, 2, 0, 2 \}
 \end{align*}
 
 \subparagraph{Apartado C.}
 
-La transformada de fourier de la señal periodica es simplemente la DFT
-de un periodo (apartado anterior), expresada en forma de distribución:
+La transformada de Fourier de la señal periódica es simplemente la DFT
+de un periodo (apartado anterior) expresada como distribución:
 %
 \begin{align*}
-  X(f) = \sum_{k = -\infty}^{\infty} X[k] \delta(f - 4k)
-    = 2 \, \Psi_{\nicefrac{1}{2}}(f - \nicefrac{1}{4})
+  X(F) = \sum_{k = -\infty}^{\infty} X[k] \,
+    \delta\hspace{-.2em}\left(4F - k\right)
+    = \nicefrac{1}{2} \, \Psi_{\nicefrac{1}{2}}(F - \nicefrac{1}{4})
 \end{align*}
 
 \subparagraph{Apartado D.}
@@ -188,8 +189,8 @@ anchura de unas 33 muestras. Esto significa $L_1 \simeq L + \frac{2\cdot 400}{33
 \simeq 125$ muestras.
 
 Respecto al tercer tono, este muere ya en la primera ventana donde tiene una
-anchura de unas 100 muestras. Esto significa $L_1 \simeq \frac{2\cdot 400}{100}
-\simeq 8$ muestras.
+anchura de unas 10 muestras. Esto significa $L_1 \simeq \frac{2\cdot 400}{10}
+\simeq 80$ muestras.
 
 
 \finishpage
