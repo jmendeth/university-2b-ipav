@@ -1,0 +1,262 @@
+\input{preamble.tex}
+\AfterPreamble{\hypersetup{
+  pdftitle={Entregable 5: Análisis frecuencial 2D},
+}}
+
+\begin{document}
+\startpage
+
+\paragraph{Problema 1.}
+
+Asumiremos que las imagenes tienen el origen de coordenadadas situado en el centro.
+
+\subparagraph{Apartado A.}
+
+Podemos aplicar la definición sobre la imagen B expresada en términos de la imagen A:
+%
+\begin{align*}
+  \mathcal{F}\left\{ x_B[m, n] \right\}(F_1, F_2) &=
+  \sum_{m=-\infty}^{\infty} e^{-j\tau F_1 m} \,
+  \sum_{n=-\infty}^{\infty} e^{-j\tau F_2 n} \,
+  x_B[m, n]
+\\
+  X_B(F_1, F_2) &=
+  \sum_{m=-\infty}^{\infty} e^{-j\tau F_1 m} \,
+  \sum_{n=-\infty}^{\infty} e^{-j\tau F_2 n} \,
+  x_A[-m, n]
+\end{align*}
+%
+Aplicamos un cambio de variable en el sumatorio externo, manipulamos y reconocemos
+la transformada de $x_A$:
+%
+\begin{align*}
+  X_B(F_1, F_2) &=
+  \sum_{m'=-\infty}^{\infty} e^{-j\tau F_1 (-m')} \,
+  \sum_{n=-\infty}^{\infty} e^{-j\tau F_2 n} \,
+  x_A[m', n]
+\\
+  X_B(F_1, F_2) &=
+  \sum_{m'=-\infty}^{\infty} e^{-j\tau (-F_1) m'} \,
+  \sum_{n=-\infty}^{\infty} e^{-j\tau F_2 n} \,
+  x_A[m', n]
+\\
+  X_B(F_1, F_2) &= X_A(-F_1, F_2)
+\end{align*}
+
+\subparagraph{Apartado B.}
+
+Para la imagen C seguimos un procedimiento análogo:
+%
+\begin{align*}
+  \mathcal{F}\left\{ x_C[m, n] \right\}(F_1, F_2) &=
+  \sum_{m=-\infty}^{\infty} e^{-j\tau F_1 m} \,
+  \sum_{n=-\infty}^{\infty} e^{-j\tau F_2 n} \,
+  x_A[-m, -n]
+\\
+  X_C(F_1, F_2) &=
+  \sum_{m'=-\infty}^{\infty} e^{-j\tau F_1 (-m')} \,
+  \sum_{n=-\infty}^{\infty} e^{-j\tau F_2 n} \,
+  x_A[m', -n]
+\\
+  X_C(F_1, F_2) &=
+  \sum_{m'=-\infty}^{\infty} e^{-j\tau F_1 (-m')} \,
+  \sum_{n'=-\infty}^{\infty} e^{-j\tau F_2 (-n')} \,
+  x_A[m', n']
+\\
+  X_C(F_1, F_2) &= X_A(-F_1, -F_2)
+\end{align*}
+
+\subparagraph{Apartado C.}
+
+De nuevo usamos la definición de la antitransformada:
+%
+\begin{align*}
+  \mathcal{F}^{-1}\left\{ X_A^*(F_1, F_2) \right\}(m, n) &=
+  \iint_{-\infty}^{\infty} X_A^*(F_1, F_2) e^{j\tau\left[F_1 m + F_2 n\right]} \dif F_1 \dif F_2
+\end{align*}
+%
+Y simplificamos hasta reconocer la antitransformada de $X_A(F_1, F_2)$:
+%
+\begin{align*}
+  \quad &=
+  \iint_{-\infty}^{\infty} X_A^*(F_1, F_2) e^{-j\tau\left[F_1 (-m) + F_2 (-n)\right]} \dif F_1 \dif F_2
+\\
+  \quad &=
+  \iint_{-\infty}^{\infty} X_A^*(F_1, F_2) \left(e^{j\tau\left[F_1 (-m) + F_2 (-n)\right]}\right)^* \dif F_1 \dif F_2
+\\
+  \quad &=
+  \left( \iint_{-\infty}^{\infty} X_A(F_1, F_2) e^{j\tau\left[F_1 (-m) + F_2 (-n)\right]} \dif F_1 \dif F_2 \right)^*
+\\
+  \quad &=
+  \left( x_A(-m, -n) \right)^*
+\end{align*}
+
+Sabiendo que ambas antitransformadas son secuencias de igual periodo y
+que son reales, la nueva secuencia es simplemente $x_A[-m, -n]$.
+
+\finishpage
+
+
+\startpage
+
+\paragraph{Problema 2.}
+
+\subparagraph{Apartado A.}
+
+Aplicando mentalmente la definición y simplificando:
+%
+\begin{align*}
+  X(F_1, F_2) &= e^{-j\tau\left[ 1F_1 + 0F_2 \right]} + e^{-j\tau\left[ 1F_1 + 1F_2 \right]}
+\\
+  X(F_1, F_2) &= e^{-j\tau\left[ 1F_1 + \frac{1}{2}F_2 \right]}
+    \left( e^{+j\tau\frac{1}{2}F_2} + e^{-j\tau\frac{1}{2}F_2} \right)
+\\
+  X(F_1, F_2) &= 2 \cos(\tau\nicefrac{F_2}{2}) e^{-j\tau\left( F_1 + \frac{F_2}{2} \right)}
+\end{align*}
+
+\subparagraph{Apartado B.}
+
+Una forma de hacerlo es aplicando la DFT por columnas:
+%
+\begin{equation*}
+  \begin{bmatrix}
+    0 & 2 \\
+    0 & 0
+  \end{bmatrix}
+\end{equation*}
+%
+Y luego por filas:
+%
+\begin{equation*}
+  \begin{bmatrix}
+    2 & -2 \\
+    0 & 0
+  \end{bmatrix}
+\end{equation*}
+%
+Esto coincide, si lo comprobamos, con la expresión obtenida en el apartado anterior muestreada
+adecuadamente.
+
+\subparagraph{Apartado C.}
+
+La DFT es invariable delante de la transposición, así que el resultado es la misma matriz,
+transpuesta:
+%
+\begin{equation*}
+  \begin{bmatrix}
+    2 & 0 \\
+    -2 & 0
+  \end{bmatrix}
+\end{equation*}
+
+\subparagraph{Apartado D.}
+
+La DFT es lineal, así que el resultado es la misma matriz, multiplicada por 10:
+%
+\begin{equation*}
+  \begin{bmatrix}
+    20 & -20 \\
+    0 & 0
+  \end{bmatrix}
+\end{equation*}
+
+\finishpage
+
+
+\startpage
+
+\paragraph{Problema 3.}
+
+\subparagraph{Apartado A.}
+
+El proceso pone a 0 el bin $(0, 0)$ de la DFT, con lo cual establece la media de la imagen
+a cero sin cambiar nada más. Es decir, sustrae una constante $k$ a todos los píxeles de la imagen
+de forma que la suma de todos los nuevos píxeles sea nula:
+%
+\begin{align*}
+  x'[m, n] = x[m, n] - k \\
+  \sum_{m=0}^{M} \sum_{n=0}^{N} x'[m, n] = 0 \\
+  \sum_{m=0}^{M} \sum_{n=0}^{N} x[m, n] - k = 0 \\
+  \sum_{m=0}^{M} \sum_{n=0}^{N} x[m, n] = k \cdot MN \\
+  k = \frac{1}{MN} \sum_{m=0}^{M} \sum_{n=0}^{N} x[m, n]
+\end{align*}
+%
+En otras palabras: el proceso sustrae de cada píxel de la imagen, la media de dicha imagen.
+
+\subparagraph{Apartado B.}
+
+Dado que el proceso solo suma una constante a todos los píxeles, el margen dinámico no cambia.
+
+\subparagraph{Apartado C.}
+
+Se obtiene $x[m, n] - x'[m, n] = x[m, n] - (x[m, n] - k) = k$ queda una imágen que tiene todos
+los píxeles establecidos a $k$, la media de $x[m, n]$.
+
+\finishpage
+
+
+\startpage
+
+\paragraph{Problema 4.}
+
+\subparagraph{Apartado A.}
+
+La matriz es $1$ salvo cuando $m + n - (N - 1) = 0$, en cuyo caso es $0$.
+Para $M = N$, la matriz sería:
+%
+\begin{equation*}
+  \begin{bmatrix}
+    0 & 0 & 0 & 0 & \cdots & 0 & 0 & 1 \\
+    0 & 0 & 0 & 0 &        & 0 & 1 & 0 \\
+    0 & 0 & 0 & 0 &        & 1 & 0 & 0 \\
+    0 & 0 & 0 & 0 &        & 0 & 0 & 0 \\
+
+    \vdots  & & & & \ddots & & & \vdots\\
+
+    0 & 0 & 1 & 0 &        & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 &        & 0 & 0 & 0 \\
+    1 & 0 & 0 & 0 & \cdots & 0 & 0 & 0
+  \end{bmatrix}
+\end{equation*}
+%
+Para obtener la matriz para $M < N$ o $M > N$, sustraer columnas del final o añadir
+columnas nulas según convenga.
+
+\subparagraph{Apartado B.}
+
+Tenemos la matriz:
+%
+\begin{equation*}
+  \begin{bmatrix}
+    0 & 0 & 0 & 1 \\
+    0 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 0 \\
+    1 & 0 & 0 & 0
+  \end{bmatrix}
+\end{equation*}
+%
+Aplicamos DFT por filas:
+%
+\begin{equation*}
+  \begin{bmatrix}
+     1 &  j & -1 & -j \\
+     1 & -1 &  1 & -1 \\
+     1 & -j & -1 &  j \\
+     1 &  1 &  1 &  1
+  \end{bmatrix}
+\end{equation*}
+%
+Ahora aplicamos DFT por columnas:
+%
+\begin{equation*}
+  \begin{bmatrix}
+     4 &  0 &  0 &  0 \\
+     0 & 4j &  0 &  0 \\
+     0 &  0 & -4 &  0 \\
+     0 &  0 &  0 & -4j
+  \end{bmatrix}
+\end{equation*}
+%
+
+\finishpage
+\end{document}
